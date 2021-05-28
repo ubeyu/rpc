@@ -8,6 +8,6 @@ import java.io.IOException;
 
 
 public interface RPCServer {
-    void start(int port) throws IOException;
+    void start(int port) throws IOException, InterruptedException;
     void stop();
 }

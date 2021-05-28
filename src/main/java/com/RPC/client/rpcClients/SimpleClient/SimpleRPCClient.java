@@ -1,5 +1,8 @@
-package com.RPC.client;
+package com.RPC.client.rpcClients.SimpleClient;
 
+
+
+import com.RPC.client.RPCClient;
 import com.RPC.pojo.RPCRequest;
 import com.RPC.pojo.RPCResponse;
 
@@ -8,14 +11,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-/**
- * 负责底层与服务端的通信，客户端发起一次请求调用，Socket建立连接，发送Request，接收Response
- * 这里Request是封装好的（上层进行封装），不同的service需要进行不同的封装
- * 客户端只知道Service接口，需要一层动态代理根据反射封装不同的Service
- */
+public class SimpleRPCClient implements RPCClient {
+    private String host;
+    private int port;
 
-public class IOClient {
-    public static RPCResponse sendRequest(String host, int port, RPCRequest rpcRequest){
+    public SimpleRPCClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    public RPCResponse sendRPCRequest(RPCRequest rpcRequest) {
         try {
             Socket s = new Socket(host, port);
 
@@ -34,7 +39,7 @@ public class IOClient {
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.println("RPCClient IS NOT WORKING!!!");
+            System.out.println("RPCClient ERROR!!!");
             return null;
         }
     }

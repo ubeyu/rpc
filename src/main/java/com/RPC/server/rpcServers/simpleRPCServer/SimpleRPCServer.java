@@ -1,14 +1,19 @@
-package com.RPC.server;
+package com.RPC.server.rpcServers.simpleRPCServer;
+
+
+
+import com.RPC.server.RPCServer;
+import com.RPC.server.ServiceProvider;
+import com.RPC.server.rpcServers.WorkThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SimpleRPCServer implements RPCServer{
+public class SimpleRPCServer implements RPCServer {
 
     // 不直接保存map，改为保存ServiceProvider
     //  private Map<String, Object> serviceProvider;
-
     private ServiceProvider serviceProvider;
 
     public SimpleRPCServer(ServiceProvider serviceProvider) {

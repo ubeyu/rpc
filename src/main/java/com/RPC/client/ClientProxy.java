@@ -15,12 +15,18 @@ import java.lang.reflect.Proxy;
 
 
 public class ClientProxy implements InvocationHandler {
-    private String host;
-    private int port;
+//    第四次更新，由于写了RPCClient，包含host和port，则代替这部分
+//    private String host;
+//    private int port;
+//
+//    public ClientProxy(String host, int port) {
+//        this.host = host;
+//        this.port = port;
+//    }
+    private RPCClient rpcClient;
 
-    public ClientProxy(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public ClientProxy(RPCClient rpcClient) {
+        this.rpcClient = rpcClient;
     }
 
     // jdk 动态代理， 每一次代理对象调用方法，会经过此方法增强（反射获取request对象，socket发送至客户端）
@@ -33,7 +39,7 @@ public class ClientProxy implements InvocationHandler {
         rpcRequest.setParams(args);
         rpcRequest.setParamsTypes(method.getParameterTypes());
         //得到
-        RPCResponse rpcResponse = IOClient.sendRequest(host, port, rpcRequest);
+        RPCResponse rpcResponse = rpcClient.sendRPCRequest(rpcRequest);
         return rpcResponse.getObject();
     }
     <T>T getProxy(Class<T> clazz){
