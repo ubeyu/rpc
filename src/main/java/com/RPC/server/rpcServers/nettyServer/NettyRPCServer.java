@@ -1,6 +1,5 @@
 package com.RPC.server.rpcServers.nettyServer;
 
-
 import com.RPC.server.RPCServer;
 import com.RPC.server.ServiceProvider;
 import io.netty.bootstrap.ServerBootstrap;
@@ -14,8 +13,6 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  *  2.EventLoop——控制流、多线程处理、并发
  *  3.ChannelFuture——异步通知
  */
-
-
 
 public class NettyRPCServer implements RPCServer {
 
@@ -33,7 +30,7 @@ public class NettyRPCServer implements RPCServer {
         // work 为工作线程组，主要是处理与客户端的数据通讯
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workGroup = new NioEventLoopGroup();
-        System.out.println("NettyRPCServer IS WORKING...");
+        System.out.println("NettyRPCServer IS WORKING...\n");
         try{
             // 启动Netty服务器
             ServerBootstrap serverBootstrap = new ServerBootstrap();

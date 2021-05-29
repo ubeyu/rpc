@@ -30,6 +30,8 @@ public class TestServer {
         // RPCServer rpcServer = new ThreadPoolRPCServer(sp);
         // Netty 版本 RPC 服务端
         RPCServer rpcServer = new NettyRPCServer(sp);
+
+        // 启动服务端
         rpcServer.start(2021);
     }
 }

@@ -14,6 +14,10 @@ public class RPCResponse implements Serializable {
     //对象数据
     private Object object;
 
+    //对象类型，第五次更新加入，用于在反序列化中获取对象的类型
+    private Class<?> objectType;
+
+
     public int getStateCode() {
         return stateCode;
     }
@@ -38,18 +42,33 @@ public class RPCResponse implements Serializable {
         this.object = object;
     }
 
+    public Class<?> getObjectType() {
+        return objectType;
+    }
+
+    public void setObjectType(Class<?> objectType) {
+        this.objectType = objectType;
+    }
+
+    public RPCResponse(int stateCode, String stateMessage, Object object, Class<?> objectType) {
+        this.stateCode = stateCode;
+        this.stateMessage = stateMessage;
+        this.object = object;
+        this.objectType = objectType;
+    }
+
+    public RPCResponse(int stateCode, String stateMessage) {
+        this.stateCode = stateCode;
+        this.stateMessage = stateMessage;
+    }
+
     public static RPCResponse sucess(Object object){
-        RPCResponse rpcResponse = new RPCResponse();
-        rpcResponse.setStateCode(200);
-        rpcResponse.setStateMessage("成功");
-        rpcResponse.setObject(object);
+        RPCResponse rpcResponse = new RPCResponse(200, "创建 RPCResponse 成功", object, object.getClass());
         return rpcResponse;
     }
 
     public static RPCResponse fail(){
-        RPCResponse rpcResponse = new RPCResponse();
-        rpcResponse.setStateCode(500);
-        rpcResponse.setStateMessage("失败");
+        RPCResponse rpcResponse = new RPCResponse(500, "创建 RPCResponse 失败");
         return rpcResponse;
     }
 }

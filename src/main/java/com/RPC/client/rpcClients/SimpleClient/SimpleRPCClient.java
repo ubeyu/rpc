@@ -39,7 +39,7 @@ public class SimpleRPCClient implements RPCClient {
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            System.out.println("RPCClient ERROR!!!");
+            System.out.println("SimpleRPCClient ERROR!!!");
             return null;
         }
     }

@@ -12,7 +12,7 @@ public class TestClient {
         // 构建一个使用java Socket/ netty/....传输的客户端
 
         // 得到服务端所用的接口实现proxy
-        //SimpleRPCClient simpleRPCClient = new SimpleRPCClient("127.0.0.1", 2024);
+        //SimpleRPCClient simpleRPCClient = new SimpleRPCClient("127.0.0.1", 2021);
         NettyRPCClient nettyRPCClient = new NettyRPCClient("127.0.0.1", 2021);
 
         ClientProxy clientProxy = new ClientProxy(nettyRPCClient);
@@ -22,16 +22,15 @@ public class TestClient {
 
         // 调用1
         User user = userProxy.getUserByUserId(949);
-        System.out.println("查 User ID 得到结果：" + user);
+        System.out.println("客户端：查 User ID 得到结果：" + user + "\n");
 
         // 调用2
         User newUser = new User(231, "zhoucunjie2", true);
         Integer integer = userProxy.insertUserId(newUser);
-        System.out.println("插入新 User 得到结果：" + integer);
+        System.out.println("客户端：插入新 User 得到结果：" + integer + "\n");
 
         // 调用3
         Blog blog = blogProxy.getBlogById(10000);
-        System.out.println("查 Blog ID 得到结果：" + blog);
-
+        System.out.println("客户端：查 Blog ID 得到结果：" + blog + "\n");
     }
 }
