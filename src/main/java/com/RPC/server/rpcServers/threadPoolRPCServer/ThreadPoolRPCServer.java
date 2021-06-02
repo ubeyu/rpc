@@ -40,7 +40,7 @@ public class ThreadPoolRPCServer implements RPCServer {
     public void start(int port){
         try{
             ServerSocket ss = new ServerSocket(port);
-            System.out.println("ThreadPoolRPCServer IS WORKING...");
+            System.out.println("ThreadPoolRPCServer IS WORKING...\n");
             while(true){
                 Socket s = ss.accept();
                 //启动线程池

@@ -10,6 +10,8 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * 按照自定义的消息格式依次写入，传入的数据可以是 rpcRequest 或 rpcResponse
  * 编码器需要持有一个 serialize 器，负责将 传入的对象 序列化 成字节数组
+ * SelfEncode编码类，需要选择初始化的编解码器，用于对收到的对象按照所选编码器进行编码
+ * 对请求和响应进行不同处理，同时将序列化器代码，写入字节数组发送，调用了编码器的serialize方法
  */
 
 public class SelfEncode extends MessageToByteEncoder {

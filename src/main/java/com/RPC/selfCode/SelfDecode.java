@@ -7,6 +7,11 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
+/**
+ * SelfDecode解码类，用于对收到的字节数组流进行解码
+ * 读取序列化器代码和信息类型代码，调用了解码器的deserialize方法进行相应处理，存放到list中
+ */
+
 public class SelfDecode extends ByteToMessageDecoder {
 
     @Override

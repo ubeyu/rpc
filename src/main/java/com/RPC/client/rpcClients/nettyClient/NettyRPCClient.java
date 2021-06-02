@@ -4,6 +4,8 @@ package com.RPC.client.rpcClients.nettyClient;
 import com.RPC.client.RPCClient;
 import com.RPC.pojo.RPCRequest;
 import com.RPC.pojo.RPCResponse;
+import com.RPC.register.ServiceRegister;
+import com.RPC.register.ZKServiceRegister;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -11,6 +13,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
+
+import java.net.InetSocketAddress;
 
 
 public class NettyRPCClient implements RPCClient {
@@ -20,10 +24,12 @@ public class NettyRPCClient implements RPCClient {
 
     private String host;
     private int port;
+    //第六次提交，引入注册中心
+    private ServiceRegister serviceRegister;
 
-    public NettyRPCClient(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public NettyRPCClient() {
+        //第六次提交，取消host和port构造方法，直接用ZK
+        this.serviceRegister = new ZKServiceRegister();
     }
 
     // netty客户端初始化，重复使用
@@ -42,6 +48,10 @@ public class NettyRPCClient implements RPCClient {
 
     @Override
     public RPCResponse sendRPCRequest(RPCRequest rpcRequest) {
+        //第六次提交，从serviceRegister获取到host和port
+        InetSocketAddress inetSocketAddress = serviceRegister.getServiceAddressByServiceName(rpcRequest.getInterfaceName());
+        host = inetSocketAddress.getHostName();
+        port = inetSocketAddress.getPort();
         try {
             //Socket s = new Socket(host, port);
             //ChannelFuture 替代上面 Socket 语句

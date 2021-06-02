@@ -20,7 +20,9 @@ public class TestServer {
 //        serviceProvider.put("com.whyRPCver3.service.UserService", usi);
 //        serviceProvider.put("com.whyRPCver3.service.BlogService", bsi);
 
-        ServiceProvider sp = new ServiceProvider();
+        // 服务暴露类ServiceProvider初始化的端口号 需要与 RPC服务启动的端口号 相同
+        // 客户端不再需要填写端口号，统一从ZKServiceRegister获取 2181 端口号
+        ServiceProvider sp = new ServiceProvider("127.0.0.1", 2021);
         sp.provideServiceInterface(usi);
         sp.provideServiceInterface(bsi);
 

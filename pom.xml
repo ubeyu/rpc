@@ -9,16 +9,30 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
+        <!--第四次提交引入：引入Netty实现BIO到NIO-->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <version>4.1.51.Final</version>
         </dependency>
 
+        <!--第五次提交引入：引入fastjson实现json序列化-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.70</version>
+        </dependency>
+
+        <!--第六次提交引入，zk框架curator，实现注册中心：这个jar包应该依赖log4j,不引入log4j会有控制台会有warn，但不影响正常使用-->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
+            <version>1.7.30</version>
         </dependency>
     </dependencies>
 

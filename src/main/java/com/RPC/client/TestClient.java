@@ -13,7 +13,12 @@ public class TestClient {
 
         // 得到服务端所用的接口实现proxy
         //SimpleRPCClient simpleRPCClient = new SimpleRPCClient("127.0.0.1", 2021);
-        NettyRPCClient nettyRPCClient = new NettyRPCClient("127.0.0.1", 2021);
+        //NettyRPCClient nettyRPCClient = new NettyRPCClient("127.0.0.1", 2021);
+
+        //第六次提交，不需要再从构造函数传入host和port，初始化zk注册中心
+        // 客户端不再需要填写端口号，统一从ZKServiceRegister获取 2181 端口号
+        //SimpleRPCClient simpleRPCClient = new SimpleRPCClient();
+        NettyRPCClient nettyRPCClient = new NettyRPCClient();
 
         ClientProxy clientProxy = new ClientProxy(nettyRPCClient);
 
