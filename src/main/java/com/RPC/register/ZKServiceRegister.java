@@ -1,5 +1,8 @@
 package com.RPC.register;
 
+import com.RPC.loadBalance.LoadBalance;
+import com.RPC.loadBalance.RandomLoadBalance;
+import com.RPC.loadBalance.RoundLoadBalance;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -18,6 +21,11 @@ public class ZKServiceRegister implements ServiceRegister {
     private CuratorFramework zkClient;
     //定义ZK路径的根节点
     private static final String ZK_ROOT_PATH = "whyRPC_ZK";
+
+    //负载均衡，选取随机策略
+    //LoadBalance loadBalance = new RandomLoadBalance();
+    //负载均衡，选取轮询策略
+    LoadBalance loadBalance = new RoundLoadBalance();
 
     //利用无参构造方法初始化zookeeper客户端，并与zookeeper服务端建立连接
     public ZKServiceRegister() {
@@ -60,10 +68,11 @@ public class ZKServiceRegister implements ServiceRegister {
     @Override
     public InetSocketAddress getServiceAddressByServiceName(String serviceName) {
         try {
-            //从zk客户端所有子节点中找到与服务名相同的存到list中
-            List<String> serverNameList = zkClient.getChildren().forPath("/" + serviceName);
+            //从zk客户端所有子节点（地址）中找到与服务名相同的存到list中
+            List<String> serverAddressList = zkClient.getChildren().forPath("/" + serviceName);
             //默认用第一个，后面会根据数量做负载均衡
-            String serverAddressStr = serverNameList.get(0);
+            //String serverAddressStr = serverAddressList.get(0);
+            String serverAddressStr = loadBalance.choiceOfLB(serverAddressList);
             return parseToAddress(serverAddressStr);
         } catch (Exception e) {
             e.printStackTrace();
